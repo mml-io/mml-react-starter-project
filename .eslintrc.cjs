@@ -35,7 +35,7 @@ module.exports = {
       },
     },
   ],
-
+  plugins: ["@typescript-eslint", "import", "prettier"],
   parser: "@typescript-eslint/parser",
   rules: {
     "object-shorthand": ["error", "always"],
@@ -75,7 +75,7 @@ module.exports = {
   },
   settings: {
     "import/parsers": {
-
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
       typescript: {
