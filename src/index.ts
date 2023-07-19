@@ -6,14 +6,14 @@ import express, { static as expressStatic, Request } from "express";
 import enableWs from "express-ws";
 import {
   EditableNetworkedDOM,
-  LocalObservableDomFactory,
+  LocalObservableDOMFactory,
 } from "networked-dom-server";
 
 const filePath = "./mml-document/build/index.js";
 
 const document = new EditableNetworkedDOM(
   "file://document",
-  LocalObservableDomFactory
+  LocalObservableDOMFactory
 );
 
 function reload() {
