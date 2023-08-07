@@ -10,7 +10,7 @@ export default function Light() {
       z="5"
       rx="10"
       rz="-10"
-      debug="false"
+      angle="90"
     ></m-light>
   );
 }
