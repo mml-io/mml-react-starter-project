@@ -6,6 +6,7 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "npm run serve",
     "dev:client": "cd mml-document && npm run start",
+    "build": "cd mml-document && npm run build",
     "serve": "cross-env DEV=true PORT=20205 tsx --enable-source-maps ./src/index.ts",
     "start": "tsx --enable-source-maps ./src/index.ts",
     "type-check": "tsc --noEmit",
