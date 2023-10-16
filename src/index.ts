@@ -1,7 +1,9 @@
 import * as fs from "fs";
 import path from "path";
+import url from "url";
 
 import * as chokidar from "chokidar";
+import cors from "cors";
 import express, { static as expressStatic, Request } from "express";
 import enableWs from "express-ws";
 import {
@@ -9,11 +11,12 @@ import {
   LocalObservableDOMFactory,
 } from "networked-dom-server";
 
+const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const filePath = "./mml-document/build/index.js";
 
 const document = new EditableNetworkedDOM(
   "file://document",
-  LocalObservableDOMFactory
+  LocalObservableDOMFactory,
 );
 
 function reload() {
@@ -55,7 +58,7 @@ app.get("/", (req, res) => {
   res.send(`
     <html>
       <script src="/client/index.js?websocketUrl=${getWebsocketUrl(
-        req
+        req,
       )}"></script>
     </html>
 `);
@@ -63,10 +66,11 @@ app.get("/", (req, res) => {
 
 app.use(
   "/client/",
-  expressStatic(
-    path.resolve(__dirname, "../node_modules/mml-web-client/build/")
-  )
+  expressStatic(path.resolve(dirname, "../node_modules/mml-web-client/build/")),
 );
+
+// Serve assets with CORS allowing all origins
+app.use("/assets/", cors(), expressStatic(path.resolve(dirname, "../assets/")));
 
 app.ws("/", (ws) => {
   document.addWebSocket(ws as unknown as WebSocket);

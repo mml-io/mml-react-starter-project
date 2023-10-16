@@ -20,7 +20,9 @@ function App() {
     // Get total document uptime
     // NOTE: document.timeline.currentTime reports uptime in ms
     if (!document.timeline.currentTime) return;
-    setTotalUptimeSeconds(Math.floor(document.timeline.currentTime / 1000));
+    setTotalUptimeSeconds(
+      Math.floor((document.timeline.currentTime as number) / 1000),
+    );
   };
 
   useEffect(() => {
@@ -61,7 +63,7 @@ function App() {
         rollsText={`Dice clicks: ${diceClickCount}`}
         uptimeText={`Uptime: ${uptimeLabelText}`}
       />
-      <Dice cb={onDiceClick} />
+      <Dice onClick={onDiceClick} />
     </>
   );
 }
