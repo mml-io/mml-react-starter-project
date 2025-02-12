@@ -1,15 +1,14 @@
-import * as fs from "fs";
-import path from "path";
-import url from "url";
-
 import * as chokidar from "chokidar";
 import cors from "cors";
-import express, { static as expressStatic, Request } from "express";
+import express, { Request, static as expressStatic } from "express";
 import enableWs from "express-ws";
+import * as fs from "fs";
 import {
   EditableNetworkedDOM,
   LocalObservableDOMFactory,
 } from "networked-dom-server";
+import path from "path";
+import url from "url";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const filePath = "./mml-document/build/index.js";

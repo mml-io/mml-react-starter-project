@@ -19,14 +19,13 @@ const halfDiceHeight = diceHeight / 2;
 const totalDuration = Math.max(upDuration + downDuration, rollDuration);
 
 export default function Dice(
-  props: MGroupAttributes & { onClick: () => void },
+  props: MGroupAttributes,
 ) {
   const [previousResult, setPreviousResult] = useState<DiceNumber>(1);
   const [currentResult, setCurrentResult] = useState<DiceNumber>(1);
   const [rollTime, setRollTime] = useState(-totalDuration);
 
   const rollDice = () => {
-    props.onClick();
     const t = document.timeline.currentTime as number;
     if (t < rollTime + totalDuration) {
       return;
@@ -48,7 +47,7 @@ export default function Dice(
           start-time={rollTime}
           start={halfDiceHeight.toString(10)}
           end={(heightGain + halfDiceHeight).toString(10)}
-          loop={false}
+          loop={"false"}
         ></m-attr-anim>
         <m-attr-anim
           easing="easeOutBounce"
@@ -57,7 +56,7 @@ export default function Dice(
           duration={downDuration}
           start={(heightGain + halfDiceHeight).toString(10)}
           end={halfDiceHeight.toString(10)}
-          loop={false}
+          loop={"false"}
         ></m-attr-anim>
         <m-attr-anim
           easing="easeInOutCubic"
@@ -66,7 +65,7 @@ export default function Dice(
           start-time={rollTime}
           start={oldRotation[0].toString(10)}
           end={targetRotation[0].toString(10)}
-          loop={false}
+          loop={"false"}
         ></m-attr-anim>
         <m-attr-anim
           easing="easeInOutCubic"
@@ -75,7 +74,7 @@ export default function Dice(
           start-time={rollTime}
           start={oldRotation[1].toString(10)}
           end={targetRotation[1].toString(10)}
-          loop={false}
+          loop={"false"}
         ></m-attr-anim>
         <m-attr-anim
           easing="easeInOutCubic"
@@ -84,7 +83,7 @@ export default function Dice(
           start-time={rollTime}
           start={oldRotation[2].toString(10)}
           end={targetRotation[2].toString(10)}
-          loop={false}
+          loop={"false"}
         ></m-attr-anim>
       </m-model>
     </m-group>

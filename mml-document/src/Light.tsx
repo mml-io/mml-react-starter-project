@@ -10,7 +10,7 @@ export default function Light() {
       z="10"
       rx="10"
       rz="-10"
-      debug={true}
+      debug={"true"}
     ></m-light>
   );
 }
