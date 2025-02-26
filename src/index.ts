@@ -1,14 +1,15 @@
+import {
+  EditableNetworkedDOM,
+  LocalObservableDOMFactory,
+} from "@mml-io/networked-dom-server";
 import * as chokidar from "chokidar";
 import cors from "cors";
 import express, { Request, static as expressStatic } from "express";
 import enableWs from "express-ws";
 import * as fs from "fs";
-import {
-  EditableNetworkedDOM,
-  LocalObservableDOMFactory,
-} from "networked-dom-server";
 import path from "path";
 import url from "url";
+import { createRequire } from "module";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const filePath = "./mml-document/build/index.js";
@@ -56,16 +57,24 @@ const getWebsocketUrl = (req: Request) =>
 app.get("/", (req, res) => {
   res.send(`
     <html>
-      <script src="/client/index.js?websocketUrl=${getWebsocketUrl(
+      <script src="/client/index.js?url=${getWebsocketUrl(
         req,
       )}"></script>
     </html>
 `);
 });
 
+const require = createRequire(import.meta.url);
+
+const mmlWebClientNodeModulesDirectory = path.dirname(
+  require.resolve("@mml-io/mml-web-client")
+);
+
+console.log("buildDirectory", mmlWebClientNodeModulesDirectory);
+
 app.use(
   "/client/",
-  expressStatic(path.resolve(dirname, "../node_modules/mml-web-client/build/")),
+  expressStatic(mmlWebClientNodeModulesDirectory),
 );
 
 // Serve assets with CORS allowing all origins
