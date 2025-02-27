@@ -9,6 +9,7 @@
     "lint-fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
+    "@dimforge/rapier3d": "0.14.0",
     "physics-scene": "file:../physics-scene"
   }
 }

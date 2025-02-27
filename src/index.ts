@@ -22,7 +22,7 @@ const document = new EditableNetworkedDOM(
 function reload() {
   console.log("Reloading", filePath);
   const contents = fs.readFileSync(filePath, "utf8");
-  const htmlContents = `<m-group id="root"></m-group><script>${contents}</script>`;
+  const htmlContents = `<script>${contents}</script>`;
   document.load(htmlContents);
 }
 const watcher = chokidar.watch(filePath, { persistent: true });

@@ -15,7 +15,8 @@ const buildOptions: esbuild.BuildOptions = {
   write: true,
   format: "iife",
   publicPath: "/",
-  sourcemap: true,
+  minify: true,
+  sourcemap: false,
   outdir: "build",
   plugins: [wasmLoader({
     mode: "embedded"
