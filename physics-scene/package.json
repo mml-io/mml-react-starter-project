@@ -1,0 +1,15 @@
+{
+  "name": "physics-scene",
+  "private": true,
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsx ./build.ts --build",
+    "start": "tsx ./build.ts --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --max-warnings 0",
+    "lint-fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d": "0.14.0"
+  }
+}

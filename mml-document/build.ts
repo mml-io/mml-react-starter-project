@@ -1,4 +1,5 @@
 import * as esbuild from "esbuild";
+import { wasmLoader } from 'esbuild-plugin-wasm'  
 
 const buildMode = "--build";
 const watchMode = "--watch";
@@ -7,14 +8,18 @@ const helpString = `Mode must be provided as one of ${buildMode} or ${watchMode}
 
 const buildOptions: esbuild.BuildOptions = {
   entryPoints: {
-    index: "src/index.tsx",
+    index: "src/index.ts",
   },
   bundle: true,
   external: ["node:crypto"],
   write: true,
+  format: "iife",
   publicPath: "/",
   sourcemap: true,
   outdir: "build",
+  plugins: [wasmLoader({
+    mode: "embedded"
+  })],
 };
 
 const args = process.argv.splice(2);

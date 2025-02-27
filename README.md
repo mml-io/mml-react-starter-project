@@ -8,7 +8,7 @@ environments that support Node.js and expose ports to the internet.
 
 The react application is inside the [`./mml-document`](./mml-document) folder. 
 
-Edit [`./mml-document/src/index.tsx`](./mml-document/src/index.tsx) whilst the server is running to see your changes reflected live on screen. 
+Edit [`./mml-document/src/index.ts`](./mml-document/src/index.ts) whilst the server is running to see your changes reflected live on screen. 
 
 You can find documentation for MML at: 
 [`https://mml.io/docs`](https://mml.io/docs).
