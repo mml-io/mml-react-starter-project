@@ -12,82 +12,82 @@ function radToDeg(rad: number) {
 
 doTheThing().then((RAPIER: any) => {
 
-//   const playersByConnectionId = new Map<number, {
-//     player: HTMLElement;
-//     rigidBody: any;
-//     collider: any;
-//   }>();
+  const playersByConnectionId = new Map<number, {
+    player: HTMLElement;
+    rigidBody: any;
+    collider: any;
+  }>();
 
-// function createPlayer(connectionId: number, position: { x: number, y: number, z: number }) {
-//   const player = document.createElement("m-cylinder");
-//   player.setAttribute("width", "0.5");
-//   player.setAttribute("height", "1");
-//   player.setAttribute("radius", "1");
-//   player.setAttribute("depth", "0.5");
-//   player.setAttribute("collide", "false");
-//   player.setAttribute("x", position.x.toString());
-//   player.setAttribute("y", position.y.toString());
-//   player.setAttribute("z", position.z.toString());
-//   const lerp = document.createElement("m-attr-lerp");
-//   lerp.setAttribute("duration", "100");
-//   player.appendChild(lerp);
-//   // document.body.appendChild(player);
+function createPlayer(connectionId: number, position: { x: number, y: number, z: number }) {
+  const player = document.createElement("m-cylinder");
+  player.setAttribute("width", "0.5");
+  player.setAttribute("height", "1");
+  player.setAttribute("radius", "1");
+  player.setAttribute("depth", "0.5");
+  player.setAttribute("collide", "false");
+  player.setAttribute("x", position.x.toString());
+  player.setAttribute("y", position.y.toString());
+  player.setAttribute("z", position.z.toString());
+  const lerp = document.createElement("m-attr-lerp");
+  lerp.setAttribute("duration", "100");
+  player.appendChild(lerp);
+  // document.body.appendChild(player);
 
-//   // Create a kinematic rigid body instead of dynamic
-//   const rigidBodyDesc = RAPIER.RigidBodyDesc.kinematicPositionBased()
-//   .setTranslation(0, 0, 0);
-//   const rigidBody = world.createRigidBody(rigidBodyDesc);
+  // Create a kinematic rigid body instead of dynamic
+  const rigidBodyDesc = RAPIER.RigidBodyDesc.kinematicPositionBased()
+  .setTranslation(0, 0, 0);
+  const rigidBody = world.createRigidBody(rigidBodyDesc);
 
-//   const colliderDesc = RAPIER.ColliderDesc.cylinder(1, 1);  
-//   const collider = world.createCollider(colliderDesc, rigidBody);
+  const colliderDesc = RAPIER.ColliderDesc.cylinder(1, 1);  
+  const collider = world.createCollider(colliderDesc, rigidBody);
 
-//   playersByConnectionId.set(connectionId, { player, rigidBody, collider });
-// }
+  playersByConnectionId.set(connectionId, { player, rigidBody, collider });
+}
 
-// function updatePlayer(connectionId: number, position: { x: number, y: number, z: number }) {
-//   const player = playersByConnectionId.get(connectionId);
-//   if (player) {
-//     player.player.setAttribute("x", position.x.toString());
-//     player.player.setAttribute("y", position.y.toString());
-//     player.player.setAttribute("z", position.z.toString());
+function updatePlayer(connectionId: number, position: { x: number, y: number, z: number }) {
+  const player = playersByConnectionId.get(connectionId);
+  if (player) {
+    player.player.setAttribute("x", position.x.toString());
+    player.player.setAttribute("y", position.y.toString());
+    player.player.setAttribute("z", position.z.toString());
 
-//     player.rigidBody.setTranslation(position.x, position.y, position.z);
-//   }
-// }
+    player.rigidBody.setTranslation(position.x, position.y + 2, position.z);
+  }
+}
 
-// function removePlayer(connectionId: number) {
-//   const playerData = playersByConnectionId.get(connectionId);
-//   if (playerData) {
-//     // Remove the player element from the DOM
-//     playerData.player.remove();
+function removePlayer(connectionId: number) {
+  const playerData = playersByConnectionId.get(connectionId);
+  if (playerData) {
+    // Remove the player element from the DOM
+    playerData.player.remove();
     
-//     // Remove the rigid body from the physics world
-//     world.removeRigidBody(playerData.rigidBody);
+    // Remove the rigid body from the physics world
+    world.removeRigidBody(playerData.rigidBody);
     
-//     // Remove from our tracking map
-//     playersByConnectionId.delete(connectionId);
-//   }
-// }
+    // Remove from our tracking map
+    playersByConnectionId.delete(connectionId);
+  }
+}
 
-// window.addEventListener("disconnected", (event) => {
-//   removePlayer(event.detail.connectionId);
-// });
+window.addEventListener("disconnected", (event) => {
+  removePlayer(event.detail.connectionId);
+});
 
-//   const positionProbe = document.createElement("m-position-probe");
-//   positionProbe.setAttribute("range", "1000");
-//   positionProbe.setAttribute("interval", "100");
-//   positionProbe.setAttribute("debug", "true");
-//   document.body.appendChild(positionProbe);
+  const positionProbe = document.createElement("m-position-probe");
+  positionProbe.setAttribute("range", "1000");
+  positionProbe.setAttribute("interval", "100");
+  positionProbe.setAttribute("debug", "true");
+  document.body.appendChild(positionProbe);
 
-//   positionProbe.addEventListener("positionenter", (event: any) => {
-//     createPlayer(event.detail.connectionId, event.detail.documentRelative.position);
-//   });
-//   positionProbe.addEventListener("positionmove", (event: any) => {
-//     updatePlayer(event.detail.connectionId, event.detail.documentRelative.position);
-//   });
-//   positionProbe.addEventListener("positionleave", (event: any) => {
-//     removePlayer(event.detail.connectionId);
-//   });
+  positionProbe.addEventListener("positionenter", (event: any) => {
+    createPlayer(event.detail.connectionId, event.detail.documentRelative.position);
+  });
+  positionProbe.addEventListener("positionmove", (event: any) => {
+    updatePlayer(event.detail.connectionId, event.detail.documentRelative.position);
+  });
+  positionProbe.addEventListener("positionleave", (event: any) => {
+    removePlayer(event.detail.connectionId);
+  });
  
   
 let gravity = { x: 0.0, y: -9.81, z: 0.0 };
@@ -142,7 +142,7 @@ function restart() {
   const brickDepth = 0.75;
   for (let y = 0; y < 6; y++) {
     for (let x = 0; x < 6; x++) {
-    for (let z = 0; z < 1; z++) {
+    for (let z = 3; z < 4; z++) {
       const cubePhysics = new PhysicsObject(
         RAPIER,
         world,
@@ -298,19 +298,19 @@ let gameLoop = () => {
   }
 
     // Update player physics bodies with their current positions
-    // playersByConnectionId.forEach((playerData) => {
-    //   const x = parseFloat(playerData.player.getAttribute("x") || "0");
-    //   const y = parseFloat(playerData.player.getAttribute("y") || "0");
-    //   const z = parseFloat(playerData.player.getAttribute("z") || "0");
+    playersByConnectionId.forEach((playerData) => {
+      const x = parseFloat(playerData.player.getAttribute("x") || "0");
+      const y = parseFloat(playerData.player.getAttribute("y") || "0");
+      const z = parseFloat(playerData.player.getAttribute("z") || "0");
       
-    //   // Update the kinematic body position
-    //   playerData.rigidBody.setTranslation({ x, y, z }, true);
-    // });
+      // Update the kinematic body position
+      playerData.rigidBody.setTranslation({ x, y: y + 1, z }, true);
+    });
     
     // Step the simulation forward.  
     world.step();
 
-    if (doNet) {
+    if (true) {
       for (let i = 0; i < allPhysicsObjects.length; i++) {
         const cubePhysics = allPhysicsObjects[i];
         cubePhysics.tick();
