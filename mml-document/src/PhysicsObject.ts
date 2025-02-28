@@ -1,104 +1,136 @@
 import type RAPIER from "@dimforge/rapier3d"
 import { Quat } from "./math/Quat";
 import { EulXYZ } from "./math/EulXYZ";
-import { radToDeg } from "./math/radToDeg";
+import { degToRad, radToDeg } from "./math/radToDeg";
 
 type PhysicsObjectDesc = {
-    type: "sphere",
-    radius: number;
+  type: "sphere",
+  radius: number;
 } | {
-    type: "box",
-    width: number;
-    height: number;
-    depth: number;
+  type: "box",
+  width: number;
+  height: number;
+  depth: number;
 } | {
-    type: "cylinder",
-    radius: number;
-    height: number;
+  type: "cylinder",
+  radius: number;
+  height: number;
 }
 
 type DisplayMML = {
-    type: "sphere",
-    radius: number;
+  type: "sphere",
+  radius: number;
+  color: string;
 } | {
-    type: "cube",
-    width: number;
-    height: number;
-    depth: number;
+  type: "model",
+  src: string;
+  offset: { x: number, y: number, z: number };
+  rotation: { x: number, y: number, z: number };
+  scale?: { x: number, y: number, z: number };
 } | {
-    type: "cylinder",
-    radius: number;
-    height: number;
+  type: "cube",
+  width: number;
+  height: number;
+  depth: number;
+  color: string;
+} | {
+  type: "cylinder",
+  radius: number;
+  height: number;
+  color: string;
 }
 
 export class PhysicsObject {
 
-    public rigidBody: RAPIER.RigidBody;
-    private collider: RAPIER.Collider;
-    public mmlElementWithLerp: {
-      element: HTMLElement;
-      lerp: HTMLElement;
-    } | null = null;
+  public rigidBody: RAPIER.RigidBody;
+  private collider: RAPIER.Collider;
+  public mmlElementWithLerp: {
+    element: HTMLElement;
+    lerp: HTMLElement;
+  } | null = null;
 
-    private lastPosition: { x: number, y: number, z: number } = { x: Infinity, y: Infinity, z: Infinity };
-    private lastRotation: { x: number, y: number, z: number } = { x: Infinity, y: Infinity, z: Infinity };
+  private lastPosition: { x: number, y: number, z: number } = { x: Infinity, y: Infinity, z: Infinity };
+  private lastRotation: { x: number, y: number, z: number } = { x: Infinity, y: Infinity, z: Infinity };
 
   constructor(
-    private rapier: typeof RAPIER, 
+    private rapier: typeof RAPIER,
     private world: RAPIER.World,
     private desc: PhysicsObjectDesc,
-    position: { x: number, y: number, z: number },
+    position: { x: number, y: number, z: number, rx?: number, ry?: number, rz?: number },
     private display?: DisplayMML,
   ) {
     if (this.display) {
       let mmlElement: HTMLElement;
-        if (this.display.type === "cube") {
-            mmlElement = document.createElement("m-cube");
-            mmlElement.setAttribute("color", "red");
-            mmlElement.setAttribute("width", this.display.width.toString());
-            mmlElement.setAttribute("height", this.display.height.toString());
-            mmlElement.setAttribute("depth", this.display.depth.toString());
-        } else if (this.display.type === "sphere") {
-          mmlElement = document.createElement("m-sphere");
-            mmlElement.setAttribute("radius", this.display.radius.toString());
-        } else if (this.display.type === "cylinder") {
-          mmlElement = document.createElement("m-cylinder");
-            mmlElement.setAttribute("radius", this.display.radius.toString());
-            mmlElement.setAttribute("height", this.display.height.toString());
+      if (this.display.type === "cube") {
+        mmlElement = document.createElement("m-cube");
+        mmlElement.setAttribute("color", "red");
+        mmlElement.setAttribute("width", this.display.width.toString());
+        mmlElement.setAttribute("height", this.display.height.toString());
+        mmlElement.setAttribute("depth", this.display.depth.toString());
+      } else if (this.display.type === "model") {
+        mmlElement = document.createElement("m-group");
+        const model = document.createElement("m-model");
+        model.setAttribute("src", this.display.src);
+        model.setAttribute("x", this.display.offset.x.toString());
+        model.setAttribute("y", this.display.offset.y.toString());
+        model.setAttribute("z", this.display.offset.z.toString());
+        model.setAttribute("rx", this.display.rotation.x.toString());
+        model.setAttribute("ry", this.display.rotation.y.toString());
+        model.setAttribute("rz", this.display.rotation.z.toString());
+        if (this.display.scale) {
+          mmlElement.setAttribute("sx", this.display.scale.x.toString());
+          mmlElement.setAttribute("sy", this.display.scale.y.toString());
+          mmlElement.setAttribute("sz", this.display.scale.z.toString());
         }
-        mmlElement.setAttribute("x", position.x.toFixed(2));
-        mmlElement.setAttribute("y", position.y.toFixed(2));
-        mmlElement.setAttribute("z", position.z.toFixed(2));
-        this.mmlElementWithLerp = {
-          element: mmlElement,
-          lerp: document.createElement("m-attr-lerp"),
-        }
-        this.mmlElementWithLerp.lerp.setAttribute("duration", "100");
-        this.mmlElementWithLerp.lerp.setAttribute("attr", "x,y,z,rx,ry,rz");
-        this.mmlElementWithLerp.element.appendChild(this.mmlElementWithLerp.lerp);
-        document.body.appendChild(this.mmlElementWithLerp.element);
+        mmlElement.appendChild(model);
+      } else if (this.display.type === "sphere") {
+        mmlElement = document.createElement("m-sphere");
+        mmlElement.setAttribute("radius", this.display.radius.toString());
+      } else if (this.display.type === "cylinder") {
+        mmlElement = document.createElement("m-cylinder");
+        mmlElement.setAttribute("radius", this.display.radius.toString());
+        mmlElement.setAttribute("height", this.display.height.toString());
+      }
+      mmlElement.setAttribute("x", position.x.toFixed(2));
+      mmlElement.setAttribute("y", position.y.toFixed(2));
+      mmlElement.setAttribute("z", position.z.toFixed(2));
+
+      if (this.display.color) {
+        mmlElement.setAttribute("color", this.display.color);
+      }
+      this.mmlElementWithLerp = {
+        element: mmlElement,
+        lerp: document.createElement("m-attr-lerp"),
+      }
+      this.mmlElementWithLerp.lerp.setAttribute("duration", "100");
+      this.mmlElementWithLerp.lerp.setAttribute("attr", "x,y,z,rx,ry,rz");
+      this.mmlElementWithLerp.element.appendChild(this.mmlElementWithLerp.lerp);
+      document.body.appendChild(this.mmlElementWithLerp.element);
     }
     this.lastPosition.x = position.x;
     this.lastPosition.y = position.y;
     this.lastPosition.z = position.z;
 
-    let rigidBodyDesc = this.rapier.RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z);
+    const rotationAsEuler = new EulXYZ(degToRad(position.rx || 0), degToRad(position.ry || 0), degToRad(position.rz || 0)); 
+    const rotationAsQuat = new Quat().setFromEulerXYZ(rotationAsEuler);
+
+    let rigidBodyDesc = this.rapier.RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z).setRotation(rotationAsQuat);
     this.rigidBody = this.world.createRigidBody(rigidBodyDesc);
 
     if (this.desc.type === "box") {
-        // Create a cuboid collider attached to the dynamic rigidBody.
-        let colliderDesc1 = this.rapier.ColliderDesc.cuboid(this.desc.width/2, this.desc.height/2, this.desc.depth/2);
-        this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
+      // Create a cuboid collider attached to the dynamic rigidBody.
+      let colliderDesc1 = this.rapier.ColliderDesc.cuboid(this.desc.width / 2, this.desc.height / 2, this.desc.depth / 2);
+      this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
     } else if (this.desc.type === "sphere") {
-        // Create a sphere collider attached to the dynamic rigidBody.
-        let colliderDesc1 = this.rapier.ColliderDesc.ball(this.desc.radius);
-        this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
+      // Create a sphere collider attached to the dynamic rigidBody.
+      let colliderDesc1 = this.rapier.ColliderDesc.ball(this.desc.radius);
+      this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
     } else if (this.desc.type === "cylinder") {
-        // Create a cylinder collider attached to the dynamic rigidBody.
-        let colliderDesc1 = this.rapier.ColliderDesc.cylinder(this.desc.radius, this.desc.height);
-        this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
+      // Create a cylinder collider attached to the dynamic rigidBody.
+      let colliderDesc1 = this.rapier.ColliderDesc.cylinder(this.desc.radius, this.desc.height);
+      this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
     }
-    
+
   }
 
   tick() {
@@ -139,6 +171,48 @@ export class PhysicsObject {
         };
       }
     }
+  }
+
+
+  explodeAtPoint(x: number, y: number, z: number, maxImpulseForce: number, explosionRadius: number) {
+    const position = this.rigidBody.translation();
+    const delta = {
+      x: position.x - x,
+      y: position.y - y,
+      z: position.z - z
+    };
+
+    const distance = Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
+
+    // Skip if the object is too far away to be affected
+    if (distance > explosionRadius) {
+      return;
+    }
+
+    // Prevent division by zero and handle very close objects
+    const effectiveDistance = Math.max(0.1, distance);
+
+    // Calculate force based on inverse square law (1/r²)
+    // Objects closer to explosion receive more force
+    const forceMagnitude = maxImpulseForce * (1 - distance / explosionRadius);
+
+    // Normalize direction vector
+    const impulseXYZ = {
+      x: delta.x / effectiveDistance,
+      y: delta.y / effectiveDistance,
+      z: delta.z / effectiveDistance
+    };
+
+    // Apply impulse at the object's position
+    this.rigidBody.applyImpulseAtPoint(
+      {
+        x: impulseXYZ.x * forceMagnitude,
+        y: impulseXYZ.y * forceMagnitude,
+        z: impulseXYZ.z * forceMagnitude
+      },
+      position,
+      true
+    );
   }
 
   dispose() {
