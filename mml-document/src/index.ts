@@ -3,12 +3,13 @@ import { doTheThing } from "physics-scene";
 import { CannonControls } from "./CannonControls";
 import { FireControls } from "./FireControls";
 import { Button } from "./Button";
-import { level1, level2 } from "./Levels";
+import { levels } from "./Levels";
 import { LevelInstance } from "./LevelInstance";
 import { Assets } from "./Assets";
+import { LevelPicker } from "./LevelPicker";
 
 
-const currentLevel = level2;
+let currentLevel = levels[0];
 
 function addLerpElementToElement(element: HTMLElement, duration: number) {
   const lerp = document.createElement("m-attr-lerp");
@@ -64,9 +65,6 @@ doTheThing().then((rapier: any) => {
   });
   restartButton.element.setAttribute("z", "0.5")
   boardModel.appendChild(restartButton.element);
-
-  let firstFireTime: number | null = null;
-  let completedTime: number | null = null;
 
   let levelInstance: LevelInstance | null = null;
   function restart() {
@@ -149,5 +147,13 @@ doTheThing().then((rapier: any) => {
   gameElement.appendChild(fireControls.element);
 
   restart();
+
+  const levelPicker = new LevelPicker(levelConfig => {
+    currentLevel = levelConfig;
+    restart();
+  });
+  levelPicker.element.setAttribute("x", "-3.25");
+  levelPicker.element.setAttribute("z", "10");
+  document.body.appendChild(levelPicker.element);
 });
 

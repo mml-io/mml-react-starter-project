@@ -34,13 +34,12 @@ export const level1: LevelConfig = {
   cubes: [
   ],
   planks: [
-    { x: 1, y: 6.6, z: 2, width: 6.5, depth: 1, height: 0.2, ry: 40 },
-    { x: 1, y: 3.6, z: 4, width: 6.5, depth: 1, height: 0.2, ry: 20 },
+    { x: 3, y: 3.6, z: 2, width: 6.5, depth: 1, height: 0.2, ry: 0 },
   ],
   enemies: [
-    { x: 1, y: 3.6, z: 2 },
-    { x: 3, y: 3.6, z: 2 },
-    { x: 5, y: 3.6, z: 2 },
+    { x: 1, y: 3.8, z: 2 },
+    { x: 3, y: 3.8, z: 2 },
+    { x: 5, y: 3.8, z: 2 },
   ],
 }
 for (let y = 0; y < 3; y++) {
@@ -113,3 +112,8 @@ export const level2: LevelConfig = {
     { y: 8.9, x: 1.75 + 6, z: -7, ry: -90 },
   ],
 }
+
+export const levels = [
+  level1,
+  level2,
+]
