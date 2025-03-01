@@ -33,7 +33,7 @@ export class CannonControls {
         leftFire.setAttribute("sz", "2");
         leftFire.setAttribute("color", "red");
         leftFire.addEventListener("click", () => {
-            cannonAngle -= 5;
+            cannonAngle -= 2.5;
             if (cannonAngle < -this.options.maxAbsAngle) {
                 cannonAngle = -this.options.maxAbsAngle;
             }
@@ -51,7 +51,7 @@ export class CannonControls {
         rightFire.setAttribute("sz", "2");
         rightFire.setAttribute("color", "blue");
         rightFire.addEventListener("click", () => {
-            cannonAngle += 5;
+            cannonAngle += 2.5;
             if (cannonAngle > this.options.maxAbsAngle) {
                 cannonAngle = this.options.maxAbsAngle;
             }
@@ -70,7 +70,7 @@ export class CannonControls {
         upFire.setAttribute("color", "red");
         upFire.setAttribute("rz", "90");
         upFire.addEventListener("click", () => {
-            cannonPitch += 5;
+            cannonPitch += 2.5;
             if (cannonPitch > this.options.maxCannonPitch) {
                 cannonPitch = this.options.maxCannonPitch;
             }
@@ -88,7 +88,7 @@ export class CannonControls {
         downFire.setAttribute("color", "blue");
         downFire.setAttribute("rz", "-90");
         downFire.addEventListener("click", () => {
-            cannonPitch -= 5;
+            cannonPitch -= 2.5;
             if (cannonPitch < this.options.minCannonPitch) {
                 cannonPitch = this.options.minCannonPitch;
             }

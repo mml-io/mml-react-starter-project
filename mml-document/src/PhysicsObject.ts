@@ -5,16 +5,19 @@ import { degToRad, radToDeg } from "./math/radToDeg";
 
 type PhysicsObjectDesc = {
   type: "sphere",
-  radius: number;
+    radius: number;
+    mass?: number;
 } | {
   type: "box",
   width: number;
   height: number;
   depth: number;
+  mass?: number;
 } | {
   type: "cylinder",
   radius: number;
   height: number;
+  mass?: number;
 }
 
 type DisplayMML = {
@@ -116,6 +119,9 @@ export class PhysicsObject {
     const rotationAsQuat = new Quat().setFromEulerXYZ(rotationAsEuler);
 
     let rigidBodyDesc = this.rapier.RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z).setRotation(rotationAsQuat);
+    if (this.desc.mass) {
+      rigidBodyDesc.mass = this.desc.mass;
+    }
     this.rigidBody = this.world.createRigidBody(rigidBodyDesc);
 
     if (this.desc.type === "box") {
