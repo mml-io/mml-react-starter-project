@@ -1,6 +1,6 @@
+import { Assets } from "./Assets";
 
 type CannonControlsOptions = {
-    arrowGlb: string;
     maxAbsAngle: number;
     minCannonPitch: number;
     maxCannonPitch: number;
@@ -23,7 +23,7 @@ export class CannonControls {
         let cannonPitch = 110;
 
         const leftFire = document.createElement("m-model");
-        leftFire.setAttribute("src", this.options.arrowGlb);
+        leftFire.setAttribute("src", Assets.arrowGlb);
         leftFire.setAttribute("x", leftFirePosition.x.toString());
         leftFire.setAttribute("y", leftFirePosition.y.toString());
         leftFire.setAttribute("z", leftFirePosition.z.toString());
@@ -42,7 +42,7 @@ export class CannonControls {
         controlsGroup.appendChild(leftFire);
 
         const rightFire = document.createElement("m-model");
-        rightFire.setAttribute("src", this.options.arrowGlb);
+        rightFire.setAttribute("src", Assets.arrowGlb);
         rightFire.setAttribute("x", rightFirePosition.x.toString());
         rightFire.setAttribute("y", rightFirePosition.y.toString());
         rightFire.setAttribute("z", rightFirePosition.z.toString());
@@ -60,7 +60,7 @@ export class CannonControls {
         controlsGroup.appendChild(rightFire);
 
         const upFire = document.createElement("m-model");
-        upFire.setAttribute("src", this.options.arrowGlb);
+        upFire.setAttribute("src", Assets.arrowGlb);
         upFire.setAttribute("x", upFirePosition.x.toString());
         upFire.setAttribute("y", upFirePosition.y.toString());
         upFire.setAttribute("z", upFirePosition.z.toString());
@@ -78,7 +78,7 @@ export class CannonControls {
         });
         controlsGroup.appendChild(upFire);
         const downFire = document.createElement("m-model");
-        downFire.setAttribute("src", this.options.arrowGlb);
+        downFire.setAttribute("src", Assets.arrowGlb);
         downFire.setAttribute("x", downFirePosition.x.toString());
         downFire.setAttribute("y", downFirePosition.y.toString());
         downFire.setAttribute("z", downFirePosition.z.toString());
