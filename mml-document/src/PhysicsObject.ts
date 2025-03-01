@@ -48,6 +48,7 @@ export class PhysicsObject {
     element: HTMLElement;
     lerp: HTMLElement;
   } | null = null;
+  private nextUpdateNoLerp = false;
 
   private lastPosition: { x: number, y: number, z: number } = { x: Infinity, y: Infinity, z: Infinity };
   private lastRotation: { x: number, y: number, z: number } = { x: Infinity, y: Infinity, z: Infinity };
@@ -130,7 +131,10 @@ export class PhysicsObject {
       let colliderDesc1 = this.rapier.ColliderDesc.cylinder(this.desc.radius, this.desc.height);
       this.collider = this.world.createCollider(colliderDesc1, this.rigidBody);
     }
+  }
 
+  setNextUpdateNoLerp() {
+    // this.nextUpdateNoLerp = true;
   }
 
   tick() {
@@ -141,6 +145,15 @@ export class PhysicsObject {
       const r = this.rigidBody.rotation();
       const quat = new Quat(r.x, r.y, r.z, r.w);
       let rotation = new EulXYZ().setFromQuaternion(quat);
+
+      let removedLerp;
+      if (this.nextUpdateNoLerp) {
+        removedLerp = this.mmlElementWithLerp.lerp;
+        removedLerp.remove();
+        this.nextUpdateNoLerp = false;
+      } else {
+        // this.mmlElementWithLerp.element.appendChild(this.mmlElementWithLerp.lerp);
+      }
 
       const deltaPosition = {
         x: position.x - this.lastPosition.x,

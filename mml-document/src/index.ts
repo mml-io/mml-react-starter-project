@@ -69,41 +69,78 @@ for (let y = 0; y < 3; y++) {
 
 const level2: LevelConfig = {
   cubes: [
-    { x: 1, y: 1, z: 2, },
-    { x: 2, y: 1, z: 2, }, 
-    { x: 3, y: 1, z: 2, }, 
-    { x: 4, y: 1, z: 2, }, 
-    { x: 5, y: 1, z: 2, }, 
-    { x: 5, y: 2, z: 2, }, 
-    { x: 5, y: 3, z: 2, }, 
-    { x: 5, y: 5.5, z: 2, }, 
-    { x: 5, y: 6.5, z: 2, }, 
-    { x: 5, y: 7.5, z: 2, }, 
-    
+    { y: 0.5, x: -5.5, z: -2 },
+    { y: 1.5, x: -5.5, z: -2, ry: 45.213 },
+    { y: 2.5, x: -5.5, z: -2 },
+    { y: 3.7, x: -5.5, z: -2 },
+    { y: 4.7, x: -5.5, z: -2, ry: -20.152 },
+    { y: 5.7, x: -5.5, z: -2, ry: 44.636 },
+    { y: 0.5, x: -1, z: -3.7 },
+    { y: 1.5, x: -1, z: -3.7, ry: 50.449 },
+    { y: 2.5, x: -1, z: -3.7 },
+    { y: 3.7, x: -1, z: -3.7 },
+    { y: 4.7, x: -1, z: -3.7, ry: 17.353 },
+    { y: 5.7, x: -1, z: -3.7 },
+    { y: 0.5, x: 5.5, z: -2 },
+    { y: 1.5, x: 5.5, z: -2, ry: 19.742 },
+    { y: 2.5, x: 5.5, z: -2, ry: 8.744 },
+    { y: 3.7, x: 5.5, z: -2 },
+    { y: 4.7, x: 5.5, z: -2, ry: -18.655 },
+    { y: 5.7, x: 5.5, z: -2 },
+    { y: 0.5, x: 1, z: -3.7, ry: 41.871 },
+    { y: 1.5, x: 1, z: -3.7 },
+    { y: 2.5, x: 1, z: -3.7, ry: 12.603 },
+    { y: 3.7, x: 1, z: -3.7 },
+    { y: 4.7, x: 1, z: -3.7, ry: 20.758 },
+    { y: 5.7, x: 1, z: -3.7, ry: -10.153 },
+    { y: 0.5, x: -5, z: -7 },
+    { y: 1.5, x: -5, z: -7, ry: -46.062 },
+    { y: 2.5, x: -5, z: -7, ry: 24.805 },
+    { y: 3.5, x: -5, z: -7, ry: -36.243 },
+    { y: 4.5, x: -5, z: -7, ry: -5.245 },
+    { y: 5.5, x: -5, z: -7 },
+    { y: 6.5, x: -5, z: -7, ry: -46.062 },
+    { y: 7.5, x: -5, z: -7, ry: 2.805 },
+    { y: 8.5, x: -5, z: -7, ry: -30.243 },
+    { y: 0.5, x: 5, z: -7 },
+    { y: 1.5, x: 5, z: -7, ry: -46.062 },
+    { y: 2.5, x: 5, z: -7, ry: 24.805 },
+    { y: 3.5, x: 5, z: -7, ry: -36.243 },
+    { y: 4.5, x: 5, z: -7, ry: -5.245 },
+    { y: 5.5, x: 5, z: -7 },
+    { y: 6.5, x: 5, z: -7, ry: -46.062 },
+    { y: 7.5, x: 5, z: -7, ry: 2.805 },
+    { y: 8.5, x: 5, z: -7, ry: -30.243 },
+
   ],
   planks: [
-    { x: 1, y: 6.6, z: 2, width: 6.5, depth: 1, height: 0.2, ry: 40 },
-    { x: 1, y: 3.6, z: 4, width: 6.5, depth: 1, height: 0.2, ry: 20 },
+    { y: 3.1, x: -3.3, z: -2.8, width: 6.5, depth: 1, height: 0.2, ry: 21 },
+    { y: 6.3, x: -3.3, z: -2.8, width: 6.5, depth: 1, height: 0.2, ry: 21 },
+    { y: 3.1, x: 3.3, z: -2.8, width: 6.5, depth: 1, height: 0.2, ry: -21 },
+    { y: 6.3, x: 3.3, z: -2.8, width: 6.5, depth: 1, height: 0.2, ry: -21 },
+    { y: 6.5, x: 0, z: -3.2, width: 6.5, depth: 1, height: 0.2 },
   ],
   enemies: [
-    { x: 1, y: 3.6, z: 2 },
-    { x: 3, y: 3.6, z: 2 },
-    { x: 5, y: 3.6, z: 2 },
+    { y: 3.1, x: -3.3, z: -2.8, ry: -90 },
+    { y: 3.1, x: 3.3, z: -2.8, ry: -90 },
+    { y: 6.5, x: 0, z: -3.2, ry: -90 },
+    { y: 8.9, x: -5, z: -7, ry: -90 },
+    { y: 8.9, x: 5, z: -7, ry: -90 },
   ],
 }
 
 const currentLevel = level2;
 
 
-doTheThing().then((RAPIER: any) => {
+doTheThing().then((rapier: any) => {
 
   let gravity = { x: 0.0, y: -9.81, z: 0.0 };
-  let world = new RAPIER.World(gravity);
+  let world: RAPIER.World = new rapier.World(gravity);
 
   // Create the ground
   const planeWidth = 40;
   const planeHeight = 40;
-  let groundColliderDesc = RAPIER.ColliderDesc.cuboid(planeWidth / 2, 0.1, planeHeight / 2);
+  let groundColliderDesc = rapier.ColliderDesc.cuboid(planeWidth / 2, 0.1, planeHeight / 2);
   world.createCollider(groundColliderDesc);
 
   const plane = document.createElement("m-plane");
@@ -138,7 +175,7 @@ doTheThing().then((RAPIER: any) => {
   function loadLevel(level: LevelConfig, allPhysicsObjects: PhysicsObject[], enemies: PhysicsObject[], world: RAPIER.World) {
     for (const cube of level.cubes) {
       const cubePhysics = new PhysicsObject(
-        RAPIER,
+        rapier,
         world,
         { type: "box", width: 1, height: 1, depth: 1 },
         cube,
@@ -148,7 +185,7 @@ doTheThing().then((RAPIER: any) => {
     }
     for (const plank of level.planks) {
       const plankPhysics = new PhysicsObject(
-        RAPIER,
+        rapier,
         world,
         { type: "box", width: plank.width, height: plank.height, depth: plank.depth },
         plank,
@@ -158,17 +195,17 @@ doTheThing().then((RAPIER: any) => {
     }
     for (const enemy of level.enemies) {
       const enemyPhysics = new PhysicsObject(
-        RAPIER,
+        rapier,
         world,
         { type: "box", width: 1, height: 1.5, depth: 1 },
         enemy,
-        { type: "model", src: duckGlb, offset: { x: 0, y: -0.85, z: 0 }, rotation: { x: 0, y: -90, z: 0 }, scale: { x: 0.93, y: 0.93, z: 0.93 } }
+        { type: "model", src: duckGlb, offset: { x: 0, y: -0.85, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 0.93, y: 0.93, z: 0.93 } }
       )
       allPhysicsObjects.push(enemyPhysics);
       enemies.push(enemyPhysics);
     }
   }
-  
+
 
   function restart() {
     let score = 0;
@@ -196,7 +233,7 @@ doTheThing().then((RAPIER: any) => {
       }
     }
     spherePhysics = new PhysicsObject(
-      RAPIER,
+      rapier,
       world,
       { type: "sphere", radius: 0.5 },
       { x: 3, y: 1, z: 10 },
@@ -281,14 +318,27 @@ doTheThing().then((RAPIER: any) => {
   fireButton.setAttribute("color", "purple");
   document.body.appendChild(fireButton);
 
+  const firepowerMeterHolder = document.createElement("m-cube");
+  firepowerMeterHolder.setAttribute("x", (firePosition.x + 4).toString());
+  firepowerMeterHolder.setAttribute("y", (firePosition.y + 0).toString());
+  firepowerMeterHolder.setAttribute("z", (firePosition.z + 0.5).toString());
+  firepowerMeterHolder.setAttribute("width", "0.4");
+  firepowerMeterHolder.setAttribute("height", "3");
+  firepowerMeterHolder.setAttribute("y", "1.5");
+  firepowerMeterHolder.setAttribute("depth", "0.4");
+  firepowerMeterHolder.setAttribute("color", "#9e9e9e");
+  document.body.appendChild(firepowerMeterHolder);
+
+
+  const firepowerMeterHeight = 2.9
   const firepowerMeter = document.createElement("m-cube");
   firepowerMeter.setAttribute("x", (firePosition.x + 4).toString());
   firepowerMeter.setAttribute("y", (firePosition.y + 0).toString());
-  firepowerMeter.setAttribute("z", (firePosition.z + 0.5).toString());
-  firepowerMeter.setAttribute("width", "1");
+  firepowerMeter.setAttribute("z", (firePosition.z + 1).toString());
+  firepowerMeter.setAttribute("width", "0.3");
   firepowerMeter.setAttribute("height", "0");
-  firepowerMeter.setAttribute("depth", "1");
-  firepowerMeter.setAttribute("color", "yellow");
+  firepowerMeter.setAttribute("depth", "0.3");
+  firepowerMeter.setAttribute("color", "#58ef06");
   document.body.appendChild(firepowerMeter);
 
   let firepowerTimer: number | null = null;
@@ -319,7 +369,7 @@ doTheThing().then((RAPIER: any) => {
       firepowerMeterAnimationHeight = document.createElement("m-attr-anim");
       firepowerMeterAnimationHeight.setAttribute("attr", "height");
       firepowerMeterAnimationHeight.setAttribute("start", "0");
-      firepowerMeterAnimationHeight.setAttribute("end", "1");
+      firepowerMeterAnimationHeight.setAttribute("end", firepowerMeterHeight.toString());
       firepowerMeterAnimationHeight.setAttribute("ping-pong", "true");
       firepowerMeterAnimationHeight.setAttribute("start-time", document.timeline.currentTime!.toString());
       firepowerMeterAnimationHeight.setAttribute("duration", firepowerInterval.toString());
@@ -327,8 +377,8 @@ doTheThing().then((RAPIER: any) => {
       firepowerMeter.appendChild(firepowerMeterAnimationHeight);
       firepowerMeterAnimationY = document.createElement("m-attr-anim");
       firepowerMeterAnimationY.setAttribute("attr", "y");
-      firepowerMeterAnimationY.setAttribute("end", fireButton.getAttribute("y")!);
-      firepowerMeterAnimationY.setAttribute("start", (parseFloat(fireButton.getAttribute("y")!) - 0.5).toString());
+      firepowerMeterAnimationY.setAttribute("end", (firePosition.y).toString());
+      firepowerMeterAnimationY.setAttribute("start", (firePosition.y + (-firepowerMeterHeight / 2)).toString());
       firepowerMeterAnimationY.setAttribute("start-time", document.timeline.currentTime!.toString());
       firepowerMeterAnimationY.setAttribute("ping-pong", "true");
       firepowerMeterAnimationY.setAttribute("duration", firepowerInterval.toString());
@@ -341,6 +391,7 @@ doTheThing().then((RAPIER: any) => {
   function fireBall(velocity: number) {
     console.log("firepower", velocity);
     if (spherePhysics) {
+      spherePhysics.setNextUpdateNoLerp();
       spherePhysics.rigidBody.setTranslation({ x: firePosition.x, y: 1, z: firePosition.z }, true);
 
       const direction = {
