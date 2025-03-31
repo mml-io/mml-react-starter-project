@@ -7,6 +7,7 @@ import type RAPIER from "@dimforge/rapier3d"
 export type LevelInstanceOptions = {
   timeLabel: HTMLElement;
   scoreLabel: HTMLElement;
+  mmlHolder: HTMLElement;
   firePosition: { x: number, y: number, z: number }
   levelConfig: LevelConfig;
 }
@@ -51,7 +52,8 @@ export class LevelInstance {
         this.world!,
         { type: "sphere", radius: 0.5, mass: 2 },
         { x: 6, y: 0.5 + (ballCount - i - 1) * 0.8, z: 9 },
-        { type: "model", src: Assets.pumpkinGlb, offset: { x: 0, y: -0.25, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 2, y: 2, z: 2 } }
+        { type: "model", src: Assets.pumpkinGlb, offset: { x: 0, y: -0.25, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 2, y: 2, z: 2 } },
+        this.options.mmlHolder,
       )
       spherePhysics.rigidBody.setEnabled(false);
       this.allPhysicsObjects.push(spherePhysics);
@@ -66,7 +68,8 @@ export class LevelInstance {
         this.world,
         { type: "box", width: 1, height: 1, depth: 1 },
         cube,
-        { type: "model", src: Math.random() < 0.5 ? Assets.cageGlb : Assets.crateGlb, offset: { x: 0, y: -0.53, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 0.93, y: 0.93, z: 0.93 } }
+        { type: "model", src: Math.random() < 0.5 ? Assets.cageGlb : Assets.crateGlb, offset: { x: 0, y: -0.53, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 0.93, y: 0.93, z: 0.93 } },
+        this.options.mmlHolder,
       )
       this.allPhysicsObjects.push(cubePhysics);
     }
@@ -76,7 +79,8 @@ export class LevelInstance {
         this.world,
         { type: "box", width: plank.width, height: plank.height, depth: plank.depth },
         plank,
-        { type: "cube", width: plank.width, height: plank.height, depth: plank.depth, color: "#d27537" }
+        { type: "cube", width: plank.width, height: plank.height, depth: plank.depth, color: "#d27537" },
+        this.options.mmlHolder,
       )
       this.allPhysicsObjects.push(plankPhysics);
     }
@@ -86,7 +90,8 @@ export class LevelInstance {
         this.world,
         { type: "box", width: 1, height: 1.5, depth: 1 },
         enemy,
-        { type: "model", src: Assets.duckGlb, offset: { x: 0, y: -0.9, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 0.93, y: 0.93, z: 0.93 } }
+        { type: "model", src: Assets.duckGlb, offset: { x: 0, y: -0.9, z: 0 }, rotation: { x: 0, y: 0, z: 0 }, scale: { x: 0.93, y: 0.93, z: 0.93 } },
+        this.options.mmlHolder,
       )
       this.allPhysicsObjects.push(enemyPhysics);
       this.enemies.push(enemyPhysics);

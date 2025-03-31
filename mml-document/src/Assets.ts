@@ -1,5 +1,4 @@
-
-let remoteAssets = false;
+let remoteAssets = true;
 
 export const Assets = {
     duckGlb: remoteAssets ? "https:/public.mml.io/duck.glb" : "/assets/duck.glb",

@@ -62,6 +62,7 @@ export class PhysicsObject {
     private desc: PhysicsObjectDesc,
     position: { x: number, y: number, z: number, rx?: number, ry?: number, rz?: number },
     private display?: DisplayMML,
+    private mmlHolder: HTMLElement,
   ) {
     if (this.display) {
       let mmlElement: HTMLElement;
@@ -109,7 +110,7 @@ export class PhysicsObject {
       this.mmlElementWithLerp.lerp.setAttribute("duration", "100");
       this.mmlElementWithLerp.lerp.setAttribute("attr", "x,y,z,rx,ry,rz");
       this.mmlElementWithLerp.element.appendChild(this.mmlElementWithLerp.lerp);
-      document.body.appendChild(this.mmlElementWithLerp.element);
+      mmlHolder.appendChild(this.mmlElementWithLerp.element);
     }
     this.lastPosition.x = position.x;
     this.lastPosition.y = position.y;

@@ -19,6 +19,7 @@ function addLerpElementToElement(element: HTMLElement, duration: number) {
 }
 
 doTheThing().then((rapier: any) => {
+
   const gameElement = document.createElement("m-group");
   document.body.appendChild(gameElement);
 
@@ -78,6 +79,7 @@ doTheThing().then((rapier: any) => {
       scoreLabel,
       firePosition,
       levelConfig: currentLevel,
+      mmlHolder: gameElement,
     })
     levelInstance.start();
   }
@@ -154,6 +156,6 @@ doTheThing().then((rapier: any) => {
   });
   levelPicker.element.setAttribute("x", "-3.25");
   levelPicker.element.setAttribute("z", "10");
-  document.body.appendChild(levelPicker.element);
+  gameElement.appendChild(levelPicker.element);
 });
 
