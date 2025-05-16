@@ -15,29 +15,30 @@
     "postinstall": "cd mml-document && npm install && npm run build"
   },
   "dependencies": {
+    "@mml-io/mml-web-client": "0.19.3",
+    "@mml-io/networked-dom-server": "0.19.3",
     "@types/chokidar": "^2.1.7",
+    "@types/cors": "2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-ws": "^3.0.5",
-    "@types/cors": "2.8.17",
     "chokidar": "^3.6.0",
+    "cors": "^2.8.5",
     "esbuild": "^0.25.0",
     "esbuild-plugin-copy": "^2.1.1",
     "express": "^4.21.2",
-    "express-ws": "^5.0.2",
-    "cors": "^2.8.5",
-    "@mml-io/mml-web-client": "0.19.3",
-    "@mml-io/networked-dom-server": "0.19.3"
+    "express-ws": "^5.0.2"
   },
   "devDependencies": {
-    "tsx": "^4.19.2",
+    "@types/three": "^0.176.0",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "eslint": "9.11.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "@typescript-eslint/eslint-plugin": "^8.24.0",
-    "@typescript-eslint/parser": "^8.24.0",
+    "tsx": "^4.19.2",
     "typescript": "5.7.3",
     "typescript-eslint": "8.7.0"
   }
