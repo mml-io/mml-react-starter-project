@@ -12,7 +12,14 @@ import path from "path";
 import url from "url";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const filePath = "./mml-document/build/index.js";
+const builtMMlDocumentPath = path.resolve(
+  dirname,
+  "../mml-document/build/index.html",
+);
+const assetsBuildDirectory = path.resolve(
+  dirname,
+  "../mml-document/build/assets/",
+);
 
 const document = new EditableNetworkedDOM(
   "file://document",
@@ -20,12 +27,11 @@ const document = new EditableNetworkedDOM(
 );
 
 function reload() {
-  console.log("Reloading", filePath);
-  const contents = fs.readFileSync(filePath, "utf8");
-  const htmlContents = `<m-group id="root"></m-group><script>${contents}</script>`;
+  console.log("Reloading", builtMMlDocumentPath);
+  const htmlContents = fs.readFileSync(builtMMlDocumentPath, "utf8");
   document.load(htmlContents);
 }
-const watcher = chokidar.watch(filePath, { persistent: true });
+const watcher = chokidar.watch(builtMMlDocumentPath, { persistent: true });
 watcher
   .on("add", () => {
     reload();
@@ -68,12 +74,10 @@ const mmlWebClientNodeModulesDirectory = path.dirname(
   require.resolve("@mml-io/mml-web-client"),
 );
 
-console.log("buildDirectory", mmlWebClientNodeModulesDirectory);
-
 app.use("/client/", expressStatic(mmlWebClientNodeModulesDirectory));
 
 // Serve assets with CORS allowing all origins
-app.use("/assets/", cors(), expressStatic(path.resolve(dirname, "../assets/")));
+app.use("/assets/", cors(), expressStatic(assetsBuildDirectory));
 
 app.ws("/", (ws) => {
   document.addWebSocket(ws as unknown as WebSocket);

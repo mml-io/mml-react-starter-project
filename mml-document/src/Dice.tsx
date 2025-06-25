@@ -1,6 +1,8 @@
 import { MGroupAttributes } from "@mml-io/mml-react-types";
 import React, { useState } from "react";
 
+import diceGlb from "./assets/dice.glb";
+
 const rollMap = {
   1: [0, 0, 0],
   2: [90, 0, 0],
@@ -39,7 +41,7 @@ export default function Dice(
   const targetRotation = rollMap[currentResult];
   return (
     <m-group {...props}>
-      <m-model id="dice" src="/assets/dice.glb" onClick={rollDice}>
+      <m-model id="dice" src={diceGlb} onClick={rollDice}>
         <m-attr-anim
           easing="easeOutSine"
           attr="y"
